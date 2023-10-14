@@ -1,21 +1,20 @@
 package com.xtx.reggie_take_out.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
 /**
- * 员工信息
- * @TableName employee
+ * 菜品管理
+ * @TableName dish
  */
-@TableName(value ="employee")
+@TableName(value ="dish")
 @Data
-public class Employee implements Serializable {
+public class Dish implements Serializable {
     /**
      * 主键
      */
@@ -23,39 +22,44 @@ public class Employee implements Serializable {
     private Long id;
 
     /**
-     * 姓名
+     * 菜品名称
      */
     private String name;
 
     /**
-     * 用户名
+     * 菜品分类id
      */
-    private String username;
+    private Long categoryId;
 
     /**
-     * 密码
+     * 菜品价格
      */
-    private String password;
+    private BigDecimal price;
 
     /**
-     * 手机号
+     * 商品码
      */
-    private String phone;
+    private String code;
 
     /**
-     * 性别
+     * 图片
      */
-    private String sex;
+    private String image;
 
     /**
-     * 身份证号
+     * 描述信息
      */
-    private String idNumber;
+    private String description;
 
     /**
-     * 状态 0:禁用，1:正常
+     * 0 停售 1 起售
      */
     private Integer status;
+
+    /**
+     * 顺序
+     */
+    private Integer sort;
 
     /**
      * 创建时间
@@ -81,6 +85,11 @@ public class Employee implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
+    /**
+     * 是否删除
+     */
+    private Integer isDeleted;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -95,19 +104,21 @@ public class Employee implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Employee other = (Employee) that;
+        Dish other = (Dish) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
-            && (this.getIdNumber() == null ? other.getIdNumber() == null : this.getIdNumber().equals(other.getIdNumber()))
+            && (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
+            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
+            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
+            && (this.getImage() == null ? other.getImage() == null : this.getImage().equals(other.getImage()))
+            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
-            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()));
+            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
+            && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()));
     }
 
     @Override
@@ -116,16 +127,18 @@ public class Employee implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
-        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
-        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
-        result = prime * result + ((getIdNumber() == null) ? 0 : getIdNumber().hashCode());
+        result = prime * result + ((getCategoryId() == null) ? 0 : getCategoryId().hashCode());
+        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
+        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
+        result = prime * result + ((getImage() == null) ? 0 : getImage().hashCode());
+        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
+        result = prime * result + ((getIsDeleted() == null) ? 0 : getIsDeleted().hashCode());
         return result;
     }
 
@@ -137,16 +150,18 @@ public class Employee implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", username=").append(username);
-        sb.append(", password=").append(password);
-        sb.append(", phone=").append(phone);
-        sb.append(", sex=").append(sex);
-        sb.append(", idNumber=").append(idNumber);
+        sb.append(", categoryId=").append(categoryId);
+        sb.append(", price=").append(price);
+        sb.append(", code=").append(code);
+        sb.append(", image=").append(image);
+        sb.append(", description=").append(description);
         sb.append(", status=").append(status);
+        sb.append(", sort=").append(sort);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
+        sb.append(", isDeleted=").append(isDeleted);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -9,5 +9,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-10-14 17:10:06
 */
 public interface SetmealDishService extends IService<SetmealDish> {
+    /**
+     * 根据套餐id查询菜品
+     * @param setmealId
+     * @return
+     */
 
 }

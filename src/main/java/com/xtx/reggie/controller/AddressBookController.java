@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -29,11 +30,15 @@ public class AddressBookController {
      * 新增
      */
     @PostMapping
-    public R<AddressBook> save(@RequestBody AddressBook addressBook) {
+    public R<String> save(@RequestBody AddressBook addressBook) {
+        addressBook.setCreateUser(BaseContext.getCurrentId());
         addressBook.setUserId(BaseContext.getCurrentId());
+        addressBook.setUpdateUser(BaseContext.getCurrentId());
         log.info("addressBook:{}", addressBook);
+        addressBook.setCreateTime(LocalDateTime.now());
+        addressBook.setUpdateTime(LocalDateTime.now());
         addressBookService.save(addressBook);
-        return R.success(addressBook);
+        return R.success("添加成功");
     }
 
     /**
